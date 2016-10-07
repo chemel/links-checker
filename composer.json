@@ -1,0 +1,5 @@
+{
+    "require": {
+        "alc/curl": "dev-master"
+    }
+}
