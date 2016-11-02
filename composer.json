@@ -1,5 +1,9 @@
 {
+    "autoload": {
+        "psr-0": { "Alc\\LinksChecker": "src/" }
+    },
     "require": {
-        "alc/curl": "dev-master"
-    }
+        "alc/dom-parser-helper": "dev-master"
+    },
+    "minimum-stability": "dev"
 }
