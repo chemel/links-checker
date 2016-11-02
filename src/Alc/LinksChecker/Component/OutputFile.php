@@ -11,6 +11,10 @@ class OutputFile {
 
 		$this->filename = $filename;
 		$this->separator = $separator;
+
+		// Erase old file
+		if(file_exists($filename))
+			unlink($filename);
 	}
 
 	public function append($data) {

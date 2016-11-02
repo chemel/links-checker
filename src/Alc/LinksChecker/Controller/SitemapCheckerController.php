@@ -10,11 +10,15 @@ class SitemapCheckerController {
 
 	public function run($sitemapUrl, $ouputFilename, $verbose) {
 
+		// Extract domain
+		$domain = parse_url($sitemapUrl);
+		$domain = $domain['scheme'].'://'.$domain['host'];
+
 		$verbose->write('Collecting urls from sitemap...');
 
+		// Collecting urls from sitemap
 		$sitemapLocs = $this->getUrlsFromSitemap($sitemapUrl);
 
-		// Collecting urls from sitemap
 		$sitemapUrls = array();
 
 		foreach($sitemapLocs as $sitemapLoc) {
@@ -51,6 +55,18 @@ class SitemapCheckerController {
 			foreach($urls as $url) {
 
 			  $url = trim($url);
+
+			  // Skip empty url
+			  if(empty($url))
+			  	continue;
+
+			  // Skip tag
+			  if(substr($url, 0, 1) == '#')
+			  	continue;
+
+			  // Absolutize url
+			  if(substr($url, 0, 1) == '/')
+			  	$url = $domain.$url;
 
 			  // Skip already visited urls
 			  if(in_array($url, $visitedUrls))

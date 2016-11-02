@@ -15,10 +15,10 @@ Usage:
 
 ```bash
 
-# Check urls contained in file (one par line)
+# Check urls contained in file (one per line)
 php checkFromFile.php urls.txt output-file.tsv
 
-# Check urls from a sitemap (beta)
+# Check urls from a sitemap
 php checkFromSitemap.php http://blog.chemel.fr/sitemap.xml output-sitemap.tsv
 
 ```
