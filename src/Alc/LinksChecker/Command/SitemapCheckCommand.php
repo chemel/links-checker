@@ -6,28 +6,33 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Alc\SitemapCrawler;
 use Alc\LinksChecker\Component\UrlChecker;
 use Alc\Csv\CsvWriter;
 
-class UrlsCheckCommand extends Command
+class SitemapCheckCommand extends Command
 {
     protected function configure()
     {
 	    $this
-	        ->setName('check')
-	        ->setDescription('Urls checker')
-	        ->addArgument('input', InputArgument::REQUIRED, 'The input file.')
+	        ->setName('check:sitemap')
+	        ->setDescription('Check sitemap.xml urls')
+	        ->addArgument('url', InputArgument::REQUIRED, 'Sitemap.xml url.')
 	        ->addArgument('output', InputArgument::OPTIONAL, 'The output file.', 'php://output')
 	    ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-    	$filename = $input->getArgument('input');
+    	$url = $input->getArgument('url');
 
-    	$output->writeln('[INFO] Opening '.$filename);
+        $output->writeln('[INFO] Crawling sitemap '.$url);
 
-        $file = file($filename);
+        $crawler = new SitemapCrawler();
+
+        $urls = $crawler->crawl($url);
+
+    	$output->writeln('[INFO] '.count($urls).' urls found');
 
         // Create output file
         $csv = new CsvWriter($input->getArgument('output'));
@@ -35,7 +40,7 @@ class UrlsCheckCommand extends Command
 
         $checker = new UrlChecker();
 
-        foreach( $file as $url ) {
+        foreach( $urls as $url ) {
 
         	$url = trim($url);
 

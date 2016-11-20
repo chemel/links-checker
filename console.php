@@ -4,10 +4,11 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Alc\LinksChecker\Command\UrlsCheckCommand;
+use Alc\LinksChecker\Command;
 
 $application = new Application();
 
-$application->add(new UrlsCheckCommand());
+$application->add(new Command\FileCheckCommand());
+$application->add(new Command\SitemapCheckCommand());
 
 $application->run();

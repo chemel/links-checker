@@ -6,6 +6,7 @@
     "require": {
         "symfony/console": "^3.1",
         "alc/dom-parser-helper": "dev-master",
+		"alc/sitemap-crawler": "dev-master",
         "alc/csv": "dev-master"
     },
     "minimum-stability": "dev"
