@@ -30,10 +30,13 @@ php console.php check:file https://raw.githubusercontent.com/chemel/links-checke
 ```bash
 
 # Check sitemap.xml
+php console.php check:sitemap http://blog.chemel.fr/sitemap.xml
+
+# Check sitemap.xml and write results in tsv file
 php console.php check:sitemap http://blog.chemel.fr/sitemap.xml -o sitemap-check.tsv
-php console.php check:sitemap http://blog.chemel.fr/sitemap.xml -q
 
 # Crawl sitemap.xml and check links on each pages
+php console.php check:sitemap http://blog.chemel.fr/sitemap.xml --level=2 
 php console.php check:sitemap http://blog.chemel.fr/sitemap.xml -o output.tsv --level=2 
 
 ```

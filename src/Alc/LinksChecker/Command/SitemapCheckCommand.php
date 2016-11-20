@@ -20,7 +20,7 @@ class SitemapCheckCommand extends Command
 	        ->setName('check:sitemap')
 	        ->setDescription('Check sitemap.xml urls')
 	        ->addArgument('url', InputArgument::REQUIRED, 'Sitemap.xml url.')
-            ->addOption('output', 'o', InputOption::VALUE_OPTIONAL, 'Output results in file.', 'php://output')
+            ->addOption('output', 'o', InputOption::VALUE_OPTIONAL, 'Output results in file.')
 	        ->addOption('level', 'l', InputOption::VALUE_OPTIONAL, 'Depth level.', 1)
 	    ;
     }
@@ -37,9 +37,14 @@ class SitemapCheckCommand extends Command
 
     	$output->writeln('<info>[INFO]</info> '.count($sitemapUrls).' urls found');
 
-        // Create output file
-        $csv = new CsvWriter($input->getOption('output'));
-        $csv->setDelimiter("\t");
+        $csv = $input->getOption('output');
+
+        if( $csv ) {
+
+            // Create output file
+            $csv = new CsvWriter($input->getOption('output'));
+            $csv->setDelimiter("\t");
+        }
 
         $checker = new UrlChecker();
 
@@ -53,12 +58,19 @@ class SitemapCheckCommand extends Command
 
                 if(empty($sitemapUrl)) continue;
 
-                $output->writeln('<comment>[GET][1]</comment> '.$sitemapUrl);
+                $output->write('<comment>[GET][1]</comment> '.$sitemapUrl);
 
                 $data = $checker->check($sitemapUrl);
 
+                if( $data['statusCode'] == 200 ) {
+                    $output->writeln("\t".'<info>'.$data['statusCode'].'</info>');
+                }
+                else {
+                    $output->writeln("\t".'<error>'.$data['statusCode'].' '.$data['error'].'</error>');
+                }
+
                 // Write result in file
-                $csv->write($data);
+                if( $csv ) $csv->write($data);
 
                 $visitedUrls[] = $sitemapUrl;
 
@@ -70,12 +82,19 @@ class SitemapCheckCommand extends Command
 
                     if(in_array($url, $visitedUrls) or in_array($url, $sitemapUrls)) continue;
 
-                    $output->writeln('<comment>[GET][2]</comment> '.$url);
+                    $output->write('<comment>[GET][2]</comment> '.$url);
 
                     $data = $checker->check($url);
 
+                    if( $data['statusCode'] == 200 ) {
+                        $output->writeln("\t".'<info>'.$data['statusCode'].'</info>');
+                    }
+                    else {
+                        $output->writeln("\t".'<error>'.$data['statusCode'].' '.$data['error'].'</error>');
+                    }
+
                     // Write result in file
-                    $csv->write($data);
+                    if( $csv ) $csv->write($data);
 
                     $visitedUrls[] = $url;
                 }
@@ -87,16 +106,23 @@ class SitemapCheckCommand extends Command
 
                 $url = trim($sitemapUrl);
 
-                $output->writeln('<comment>[GET]</comment> '.$sitemapUrl);
+                $output->write('<comment>[GET]</comment> '.$sitemapUrl);
 
                 $data = $checker->check($sitemapUrl);
 
+                if( $data['statusCode'] == 200 ) {
+                    $output->writeln("\t".'<info>'.$data['statusCode'].'</info>');
+                }
+                else {
+                    $output->writeln("\t".'<error>'.$data['statusCode'].' '.$data['error'].'</error>');
+                }
+
                 // Write result in file
-                $csv->write($data);
+                if( $csv ) $csv->write($data);
             }
         }
 
-        $csv->close();
+        if( $csv ) $csv->close();
 
         $output->writeln('<info>[INFO]</info> Job done!');
     }
