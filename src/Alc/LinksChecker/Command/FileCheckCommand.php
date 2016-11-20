@@ -36,7 +36,6 @@ class FileCheckCommand extends Command
 
             // Create output file
             $csv = new CsvWriter($input->getOption('output'));
-            $csv->setDelimiter("\t");
         }
 
         $checker = new UrlChecker();
