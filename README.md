@@ -15,13 +15,13 @@ composer install
 ```bash
 
 # Check urls contained in file (one per line)
-php console.php check:file urls.txt
+php console.php check:file tests/input.txt
 
 # Check urls and write results in csv file
-php console.php check:file urls.txt -o output-file.csv
+php console.php check:file tests/input.txt -o tests/output.csv
 
 # Check urls from remote file
-php console.php check:file https://raw.githubusercontent.com/chemel/links-checker/master/urls.txt
+php console.php check:file https://raw.githubusercontent.com/chemel/links-checker/master/tests/input.txt
 
 # Show help
 php console.php check:file --help
@@ -36,7 +36,7 @@ php console.php check:file --help
 php console.php check:sitemap http://blog.chemel.fr/sitemap.xml
 
 # Check sitemap.xml and write results in csv file
-php console.php check:sitemap http://blog.chemel.fr/sitemap.xml -o sitemap-check.csv
+php console.php check:sitemap http://blog.chemel.fr/sitemap.xml -o output.csv
 
 # Crawl sitemap.xml and check links on each pages
 php console.php check:sitemap http://blog.chemel.fr/sitemap.xml --level=2 
@@ -44,6 +44,15 @@ php console.php check:sitemap http://blog.chemel.fr/sitemap.xml -o output.csv --
 
 # Show help
 php console.php check:sitemap --help
+
+```
+
+### check:seo command
+
+```bash
+
+# Check + extract meta title, description, keywords, canonical url
+php console.php check:seo tests/seo-input.txt tests/seo-output.csv
 
 ```
 

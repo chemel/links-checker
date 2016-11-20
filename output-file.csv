@@ -1,3 +1,0 @@
-requestedUrl	url	success	statusCode	errorNo	error
-http://blog.chemel.fr/	http://blog.chemel.fr/	1	200	0	
-http://error.chemel.fr/	http://error.chemel.fr/	0	0	6	"Could not resolve host: error.chemel.fr"

@@ -10,6 +10,7 @@ $application = new Application();
 
 $application->add(new Command\FileCheckCommand());
 $application->add(new Command\SitemapCheckCommand());
+$application->add(new Command\SeoCheckCommand());
 $application->add(new Command\GeneratorCommand());
 
 $application->run();
