@@ -9,5 +9,8 @@
 		"alc/sitemap-crawler": "dev-master",
         "alc/csv": "dev-master"
     },
+    "bin": [
+        "console.php"
+    ],
     "minimum-stability": "dev"
 }
