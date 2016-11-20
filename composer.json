@@ -1,9 +1,12 @@
 {
+	"name": "alc/links-checker",
     "autoload": {
         "psr-0": { "Alc\\LinksChecker": "src/" }
     },
     "require": {
-        "alc/dom-parser-helper": "dev-master"
+        "symfony/console": "^3.1",
+        "alc/dom-parser-helper": "dev-master",
+        "alc/csv": "dev-master"
     },
     "minimum-stability": "dev"
 }

@@ -16,9 +16,13 @@ Usage:
 ```bash
 
 # Check urls contained in file (one per line)
-php checkFromFile.php urls.txt output-file.tsv
+php console.php check urls.txt output-file.tsv
 
-# Check urls from a sitemap
-php checkFromSitemap.php http://blog.chemel.fr/sitemap.xml output-sitemap.tsv
+# Check urls and return results in stdin
+$php console.php check urls.txt -q
+# Sample output:
+requestedUrl	url	success	statusCode	errorNo	error
+http://blog.chemel.fr/	http://blog.chemel.fr/	1	200	0	
+http://error.chemel.fr/	http://error.chemel.fr/	0	0	6	"Could not resolve host: error.chemel.fr"
 
 ```
