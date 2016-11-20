@@ -51,6 +51,6 @@ php console.php check:sitemap --help
 
 ```bash
 
-php console.php url:generator 'http://blog.chemel.fr/page/{1-10}/' > checkme.txt
+php console.php url:generator 'http://blog.chemel.fr/page/{1-10}/' > check-me.txt
 
 ```

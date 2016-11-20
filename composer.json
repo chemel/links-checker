@@ -1,7 +1,7 @@
 {
 	"name": "alc/links-checker",
     "autoload": {
-        "psr-0": { "Alc\\LinksChecker": "src/" }
+        "psr-4": { "Alc\\LinksChecker\\": "src/" }
     },
     "require": {
         "symfony/console": "^3.1",
