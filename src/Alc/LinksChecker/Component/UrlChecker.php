@@ -6,6 +6,22 @@ use Alc\Curl\Curl;
 
 class UrlChecker {
 
+    private $curl;
+    private $response;
+
+    public function getCurl() {
+
+        if( $this->curl == null )
+            $this->curl = new Curl();
+
+        return $this->curl;
+    }
+
+    public function getCurlResponse() {
+
+        return $this->response;
+    }
+
     /**
      * Check
      *
@@ -16,9 +32,9 @@ class UrlChecker {
 
         $url = trim($url);
 
-        $curl = new Curl();
+        $curl = $this->getCurl();
 
-        $response = $curl->get($url);
+        $this->response = $response = $curl->get( $url );
 
         $info = array(
             'requestedUrl' => $url,
