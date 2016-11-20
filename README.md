@@ -10,16 +10,24 @@ composer install
 
 ## Usage:
 
+### check:file command
+
 ```bash
 
 # Check urls contained in file (one per line)
-php console.php check:file urls.txt output-file.tsv
+php console.php check:file urls.txt
 
-# Check urls and return results in stdin
-php console.php check:file urls.txt -q
+# Check urls and write results in tsv file
+php console.php check:file urls.txt -o output-file.tsv
 
 # Check urls from remote file
-php console.php check:file https://raw.githubusercontent.com/chemel/links-checker/master/urls.txt -q
+php console.php check:file https://raw.githubusercontent.com/chemel/links-checker/master/urls.txt
+
+```
+
+### check:sitemap command
+
+```bash
 
 # Check sitemap.xml
 php console.php check:sitemap http://blog.chemel.fr/sitemap.xml -o sitemap-check.tsv

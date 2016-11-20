@@ -29,13 +29,13 @@ class SitemapCheckCommand extends Command
     {
     	$url = $input->getArgument('url');
 
-        $output->writeln('[INFO] Crawling sitemap '.$url);
+        $output->writeln('<info>[INFO]</info> Crawling sitemap '.$url);
 
         $crawler = new SitemapCrawler();
 
         $sitemapUrls = $crawler->crawl($url);
 
-    	$output->writeln('[INFO] '.count($sitemapUrls).' urls found');
+    	$output->writeln('<info>[INFO]</info> '.count($sitemapUrls).' urls found');
 
         // Create output file
         $csv = new CsvWriter($input->getOption('output'));
@@ -53,7 +53,7 @@ class SitemapCheckCommand extends Command
 
                 if(empty($sitemapUrl)) continue;
 
-                $output->writeln('[GET][1] '.$sitemapUrl);
+                $output->writeln('<comment>[GET][1]</comment> '.$sitemapUrl);
 
                 $data = $checker->check($sitemapUrl);
 
@@ -70,7 +70,7 @@ class SitemapCheckCommand extends Command
 
                     if(in_array($url, $visitedUrls) or in_array($url, $sitemapUrls)) continue;
 
-                    $output->writeln('[GET][2] '.$url);
+                    $output->writeln('<comment>[GET][2]</comment> '.$url);
 
                     $data = $checker->check($url);
 
@@ -87,7 +87,7 @@ class SitemapCheckCommand extends Command
 
                 $url = trim($sitemapUrl);
 
-                $output->writeln('[GET] '.$sitemapUrl);
+                $output->writeln('<comment>[GET]</comment> '.$sitemapUrl);
 
                 $data = $checker->check($sitemapUrl);
 
@@ -98,7 +98,7 @@ class SitemapCheckCommand extends Command
 
         $csv->close();
 
-        $output->writeln('[INFO] Job done!');
+        $output->writeln('<info>[INFO]</info> Job done!');
     }
 
     private function getUrlsFromPage($content, $url) {

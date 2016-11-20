@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Alc\LinksChecker\Component\UrlChecker;
 use Alc\Csv\CsvWriter;
 
@@ -17,7 +18,7 @@ class FileCheckCommand extends Command
 	        ->setName('check:file')
 	        ->setDescription('Urls checker from file')
 	        ->addArgument('input', InputArgument::REQUIRED, 'The input file.')
-	        ->addArgument('output', InputArgument::OPTIONAL, 'The output file.', 'php://output')
+	        ->addOption('output', 'o', InputOption::VALUE_OPTIONAL, 'The output file.')
 	    ;
     }
 
@@ -25,13 +26,18 @@ class FileCheckCommand extends Command
     {
     	$filename = $input->getArgument('input');
 
-    	$output->writeln('[INFO] Opening '.$filename);
+    	$output->writeln('<info>[INFO]</info> Opening '.$filename);
 
         $file = file($filename);
 
-        // Create output file
-        $csv = new CsvWriter($input->getArgument('output'));
-        $csv->setDelimiter("\t");
+        $csv = $input->getOption('output');
+
+        if( $csv ) {
+
+            // Create output file
+            $csv = new CsvWriter($input->getOption('output'));
+            $csv->setDelimiter("\t");
+        }
 
         $checker = new UrlChecker();
 
@@ -39,16 +45,24 @@ class FileCheckCommand extends Command
 
         	$url = trim($url);
 
-            $output->writeln('[GET] '.$url);
+            $output->write('<comment>[GET]</comment> '.$url);
 
             $data = $checker->check($url);
 
+            if( $data['statusCode'] == 200 ) {
+                $output->writeln("\t".'<info>'.$data['statusCode'].'</info>');
+            }
+            else {
+                $output->writeln("\t".'<error>'.$data['statusCode'].' '.$data['error'].'</error>');
+            }
+            
+
             // Write result in file
-			$csv->write($data);
+			if( $csv ) $csv->write($data);
         }
 
-        $csv->close();
+        if( $csv ) $csv->close();
 
-        $output->writeln('[INFO] Job done!');
+        $output->writeln('<info>[INFO]</info> Job done!');
     }
 }
