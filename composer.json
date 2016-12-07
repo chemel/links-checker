@@ -1,16 +1,31 @@
 {
-	"name": "alc/links-checker",
+    "name": "alc/links-checker",
+    "type": "library",
+    "description": "Check urls contained in a file / Crawl sitemap.xml and find broken links",
+    "keywords": ["http"],
+    "homepage": "https://github.com/chemel/links-checker",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexis CHEMEL",
+            "homepage": "https://github.com/chemel"
+        }
+    ],
     "autoload": {
-        "psr-4": { "Alc\\LinksChecker\\": "src/" }
+        "psr-4": {
+            "Alc\\LinksChecker\\": "src/"
+        }
     },
     "require": {
+        "php": ">=5.3.0",
         "symfony/console": "^3.1",
-        "alc/dom-parser-helper": "dev-master",
-		"alc/sitemap-crawler": "dev-master",
-        "alc/csv": "dev-master"
+        "alc/dom-parser-helper": "^1.0",
+        "alc/sitemap-crawler": "^1.0",
+        "alc/csv": "^1.0"
     },
-    "bin": [
-        "console.php"
-    ],
-    "minimum-stability": "dev"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
 }
