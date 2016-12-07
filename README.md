@@ -49,6 +49,14 @@ phplchk check:sitemap http://blog.chemel.fr/sitemap.xml -o output.csv --level=2
 phplchk check:sitemap --help
 
 ```
+### sitemap:crawl command
+
+```bash
+
+# Dump sitemap urls
+phplchk sitemap:crawl http://blog.chemel.fr/sitemap.xml > sitemap.txt
+
+```
 
 ### check:seo command
 
