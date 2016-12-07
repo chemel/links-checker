@@ -23,6 +23,9 @@
         "alc/sitemap-crawler": "^1.0",
         "alc/csv": "^1.0"
     },
+    "bin": [
+        "console.php"
+    ],
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
