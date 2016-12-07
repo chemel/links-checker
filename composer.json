@@ -24,7 +24,7 @@
         "alc/csv": "^1.0"
     },
     "bin": [
-        "console.php"
+        "bin/console.php"
     ],
     "extra": {
         "branch-alias": {
